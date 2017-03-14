@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Color Palette</title>
+        <script src="jquery.js"></script>
+        <script>
+            $(document).ready(function(){
+
+                var colors = [
+                    ['074e68', '005580', '006887', '006699', '0074A2', '0d74bb', '0d74bb', '1077b9', '0088cc', '008cba', '1e8cbe', '428bca', '5bc0de', '366A84', '007bb8', '2b59a9'],
+                    ['802420', 'ba3925', 'bd362f', 'b74635', 'd14130', 'd13d3d', 'd15b47', 'd9534f', 'dd4b39', 'f36c60'],
+                    ['027229', '028c30', '44a51c', '43ac6a', '6BA454', '69aa46', '5cb85c', 'addb6a'],
+                    ['e59729', 'f0ad4e']
+                ];
+
+                $.each(colors, function(i, color){
+                    $.each(color, function(j, renk){
+                        $('.content').append('<div class="color"><div class="cl-prw" style="background:#' + renk + '"></div><div class="cl-text" style="color:#' + renk + '">#' + renk + '</div><div class="copy-btn" title="Kopyala"></div></div>');
+                    });
+                    $('.content').append('<div class="seperator"></div>');
+                });
+
+                $('.copy-btn').on('click', function(){
+                    var colorCode =$(this).parent().children('.cl-text').text()
+                    $('.cliboard-text').val(colorCode);
+                    var copyTextarea = document.querySelector('.cliboard-text');
+                    copyTextarea.select();
+                    document.execCommand('copy');
+                });
+
+            });
+
+            function bgchange(){
+                var renk = $('input[name=color]').val();
+                $('.content > .color').each(function(){
+                    $(this).css('background', renk);
+                });
+            }
+
+            function copy(){
+                var copyTextarea = document.querySelector('.copy');
+                copyTextarea.select();
+                document.execCommand('copy');
+            }
+        </script>
+
+        <style>
+            *{
+                box-sizing: border-box;
+                font-family: segoe-ui_normal,Segoe UI,Segoe,Segoe WP,Helvetica Neue,Helvetica,sans-serif;
+                margin:0;
+                padding:0;
+                outline: 0;
+            }
+
+            .content{
+                margin-top:50px;
+            }
+
+            .color{
+                width:150px;
+                display: inline-block;
+                border:1px solid #CCC;
+                margin:5px;
+                padding:5px;
+                vertical-align: middle;
+            }
+
+            .cl-prw{
+                width:25px;
+                height:25px;
+                display: inline-block;
+                margin-right: 15px;
+                vertical-align: middle;
+            }
+
+            .cl-text{
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            .seperator{
+                width:100%;
+                margin: 15px 0;
+                background:#d0d0d0;
+                height:1px;
+                border:none;
+            }
+
+            .copy-btn{
+                background: url(copy.png) no-repeat;
+                width: 20px;
+                height: 20px;
+                float:right;
+                margin-top:3px;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+
+            .copy-btn:active{
+                margin-top: 1px;
+                margin-right: 1px;
+            }
+
+            header{
+                width:100%;
+                height:40px;
+                padding: 5px;
+                position: fixed;
+                top:0;
+                right:0;
+                left:0;
+                background: #f8f8f8;
+                border-bottom:1px solid #e0e0e0;
+                padding-left:20px;
+            }
+
+            .cliboard-text{
+                width:0;
+                height:0;
+            }
+
+            .input{
+                width:100px;
+                padding:4px;
+                font-size:14px;
+                border:1px solid #d0d0d0;
+                border-radius: 2px;
+            }
+
+            .btn{
+                padding: 5px 10px;
+                text-align: center;
+                background: #e5e5e5;
+                border:1px solid #d0d0d0;
+                font-size:13px;
+                border-radius: 2px;
+                cursor: pointer;
+                color:#2b59a9;
+                margin-left: 5px;
+            }
+
+            .btn:hover{
+                background: #f0f0f0;
+            }
+
+            .btn:active{
+                background:#e5e5e5;
+            }
+        </style>
+
+    </head>
+<body>
+    <header>
+        <input type="text" name="color" value="#" class="input"/>
+        <button onclick="bgchange()" class="btn">Değiştir</button>
+    </header>
+
+    <div class="content"></div>
+    <textarea class="cliboard-text"></textarea>
+
+</body>
+</html>
